@@ -1,10 +1,10 @@
 export const config = {
   mongodb: {
-    uri: process.env.MONGO_URI || "YOUR_MONGO_URI",
+    uri: process.env.MONGO_URI || "mongodb://localhost:27017/improve-my-city",
   },
   auth: {
-    jwtSecret: process.env.JWT_SECRET || "dev-secret",
-    devAdminKey: process.env.DEV_ADMIN_KEY || "dev-key",
+    jwtSecret: process.env.JWT_SECRET || "your-super-secret-jwt-key-change-this-in-production",
+    devAdminKey: process.env.DEV_ADMIN_KEY || "dev-key-123",
   },
   app: {
     port: parseInt(process.env.PORT || "3000", 10),

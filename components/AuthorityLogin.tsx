@@ -28,13 +28,13 @@ export default function AuthorityLogin() {
         };
 
         return (
-                <div className="max-w-sm mx-auto bg-white p-6 rounded-xl shadow">
-                        <h2 className="text-xl font-semibold mb-4">
+                <div className="max-w-md mx-auto bg-white p-8 rounded-xl shadow">
+                        <h2 className="text-2xl font-semibold mb-6 text-center">
                                 Authority Login
                         </h2>
-                        <form className="space-y-3" onSubmit={submit}>
+                        <form className="space-y-4" onSubmit={submit}>
                                 <input
-                                        className="w-full border rounded p-2"
+                                        className="w-full border rounded-lg p-3 text-base"
                                         placeholder="Email"
                                         value={email}
                                         onChange={(e) =>
@@ -43,7 +43,7 @@ export default function AuthorityLogin() {
                                         required
                                 />
                                 <input
-                                        className="w-full border rounded p-2"
+                                        className="w-full border rounded-lg p-3 text-base"
                                         placeholder="Password"
                                         type="password"
                                         value={password}
@@ -58,7 +58,7 @@ export default function AuthorityLogin() {
                                         </div>
                                 )}
                                 <button
-                                        className="w-full bg-black text-white rounded p-2 disabled:opacity-50"
+                                        className="w-full bg-black text-white rounded-lg p-3 text-base font-medium disabled:opacity-50 hover:bg-gray-800 transition-colors"
                                         disabled={loading}
                                 >
                                         {loading ? 'Signing in...' : 'Sign in'}

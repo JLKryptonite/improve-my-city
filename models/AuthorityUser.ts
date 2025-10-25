@@ -19,4 +19,4 @@ const AuthorityUserSchema = new mongoose.Schema(
         { timestamps: true }
 );
 
-export default mongoose.models.AuthorityUser || mongoose.model("AuthorityUser", AuthorityUserSchema);
+export default mongoose.models.AuthorityUser || mongoose.model("AuthorityUser", AuthorityUserSchema, "authorityusers");

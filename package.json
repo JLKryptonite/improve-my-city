@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "seed": "node scripts/seed-db.js",
+    "test-db": "node scripts/test-connection.js"
   },
   "dependencies": {
     "@types/bcryptjs": "^2.4.6",
@@ -22,6 +24,7 @@
     "morgan": "^1.10.1",
     "multer": "^1.4.5-lts.1",
     "next": "^15.0.0",
+    "node-fetch": "^3.3.2",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "sharp": "^0.33.3"
