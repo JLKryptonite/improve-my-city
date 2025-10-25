@@ -53,7 +53,15 @@ async function getComplaintsWithFilters(filters: ComplaintFilters & { page?: num
 
   const query: any = {};
 
-  if (status) query.status = status;
+  if (status) {
+    // Support comma-separated status values for multiple statuses
+    const statusArray = status.split(',').map(s => s.trim());
+    if (statusArray.length > 1) {
+      query.status = { $in: statusArray };
+    } else {
+      query.status = status;
+    }
+  }
   if (state) query.state = state;
   if (city) query.city = city;
   if (category) query.category = new RegExp(`^${category}$`, 'i');

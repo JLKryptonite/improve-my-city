@@ -1,11 +1,13 @@
 'use client';
 
 import { useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { publicApi } from "@/lib/api";
 import type { Complaint } from "@/types";
 
 export default function ComplaintList() {
+        const searchParams = useSearchParams();
         const [complaints, setComplaints] = useState<{ items: Complaint[]; total: number; page: number; pageSize: number; totalPages: number } | null>(null);
         const [loading, setLoading] = useState(true);
         const [error, setError] = useState<string | null>(null);
@@ -16,10 +18,39 @@ export default function ComplaintList() {
                 category: '',
                 page: 1,
         });
+        const [initialized, setInitialized] = useState(false);
+
+        // Initialize filters from URL parameters
+        useEffect(() => {
+                if (!initialized) {
+                        const urlStatus = searchParams.get('status');
+                        const urlFilter = searchParams.get('filter');
+                        
+                        let initialStatus = '';
+                        
+                        if (urlStatus) {
+                                initialStatus = urlStatus;
+                        } else if (urlFilter === 'active') {
+                                // For "In Progress", show both pending AND in_progress
+                                initialStatus = 'pending,in_progress';
+                        } else if (urlFilter === 'overdue') {
+                                // For "Delayed", show both stalled AND revived
+                                initialStatus = 'stalled,revived';
+                        }
+                        
+                        if (initialStatus) {
+                                setFilters(prev => ({ ...prev, status: initialStatus }));
+                        }
+                        
+                        setInitialized(true);
+                }
+        }, [searchParams, initialized]);
 
         useEffect(() => {
-                loadComplaints();
-        }, [filters]);
+                if (initialized) {
+                        loadComplaints();
+                }
+        }, [filters, initialized]);
 
         const loadComplaints = async () => {
                 setLoading(true);
@@ -82,14 +113,100 @@ export default function ComplaintList() {
                 );
         }
 
+        const getPageTitle = () => {
+                const urlFilter = searchParams.get('filter');
+                const urlStatus = searchParams.get('status');
+                
+                if (urlStatus === 'resolved') return 'Resolved Complaints';
+                if (urlFilter === 'active') return 'Active Complaints (Pending & In Progress)';
+                if (urlFilter === 'overdue') return 'Delayed Complaints (Stalled & Revived)';
+                if (filters.status) {
+                        // Check if multiple statuses
+                        if (filters.status.includes(',')) {
+                                const statuses = filters.status.split(',').map(s => 
+                                        s.trim().replace('_', ' ').replace(/\b\w/g, l => l.toUpperCase())
+                                );
+                                return `${statuses.join(' & ')} Complaints`;
+                        }
+                        return `${filters.status.replace('_', ' ').replace(/\b\w/g, l => l.toUpperCase())} Complaints`;
+                }
+                
+                return 'Browse Complaints';
+        };
+
+        const hasActiveFilters = filters.status || filters.state || filters.city || filters.category;
+
         return (
                 <div className="space-y-4">
                         <div className="flex items-center justify-between">
-                                <h2 className="text-xl font-semibold">Browse Complaints</h2>
+                                <div className="flex items-center gap-4">
+                                        <h2 className="text-xl font-semibold">{getPageTitle()}</h2>
+                                        {hasActiveFilters && (
+                                                <Link
+                                                        href="/complaints"
+                                                        className="text-sm text-blue-600 hover:text-blue-800 underline"
+                                                >
+                                                        Clear Filters
+                                                </Link>
+                                        )}
+                                </div>
                                 <Link href="/report" className="bg-black text-white px-4 py-2 rounded">
                                         Report Issue
                                 </Link>
                         </div>
+
+                        {/* Active Filter Badge */}
+                        {hasActiveFilters && (
+                                <div className="flex flex-wrap gap-2">
+                                        {filters.status && (
+                                                <span className="inline-flex items-center gap-1 px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm">
+                                                        Status: {filters.status.includes(',') 
+                                                                ? filters.status.split(',').map(s => s.trim().replace('_', ' ')).join(' & ')
+                                                                : filters.status.replace('_', ' ')
+                                                        }
+                                                        <button
+                                                                onClick={() => handleFilterChange('status', '')}
+                                                                className="hover:text-blue-900"
+                                                        >
+                                                                ✕
+                                                        </button>
+                                                </span>
+                                        )}
+                                        {filters.city && (
+                                                <span className="inline-flex items-center gap-1 px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm">
+                                                        City: {filters.city}
+                                                        <button
+                                                                onClick={() => handleFilterChange('city', '')}
+                                                                className="hover:text-blue-900"
+                                                        >
+                                                                ✕
+                                                        </button>
+                                                </span>
+                                        )}
+                                        {filters.state && (
+                                                <span className="inline-flex items-center gap-1 px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm">
+                                                        State: {filters.state}
+                                                        <button
+                                                                onClick={() => handleFilterChange('state', '')}
+                                                                className="hover:text-blue-900"
+                                                        >
+                                                                ✕
+                                                        </button>
+                                                </span>
+                                        )}
+                                        {filters.category && (
+                                                <span className="inline-flex items-center gap-1 px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm">
+                                                        Category: {filters.category}
+                                                        <button
+                                                                onClick={() => handleFilterChange('category', '')}
+                                                                className="hover:text-blue-900"
+                                                        >
+                                                                ✕
+                                                        </button>
+                                                </span>
+                                        )}
+                                </div>
+                        )}
 
                         {/* Filters */}
                         <div className="bg-white rounded-xl shadow p-4">
