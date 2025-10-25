@@ -88,7 +88,7 @@ export interface PaginationParams {
 }
 
 export interface ComplaintFilters {
-        status?: Status;
+        status?: Status | string; // Can be single status or comma-separated statuses
         state?: string;
         city?: string;
         category?: string;

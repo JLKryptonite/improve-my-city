@@ -28,8 +28,19 @@ export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url);
     const statusParam = searchParams.get('status');
     const validStatuses: Status[] = ['pending', 'in_progress', 'resolved', 'stalled', 'revived'];
+    
+    // Validate status parameter (can be single or comma-separated)
+    let validatedStatus: string | undefined = undefined;
+    if (statusParam) {
+      const statusArray = statusParam.split(',').map(s => s.trim());
+      const allValid = statusArray.every(s => validStatuses.includes(s as Status));
+      if (allValid) {
+        validatedStatus = statusParam;
+      }
+    }
+    
     const filters: ComplaintFilters = {
-      status: statusParam && validStatuses.includes(statusParam as Status) ? statusParam as Status : undefined,
+      status: validatedStatus,
       state: searchParams.get('state') || token.scope.state || undefined,
       city: searchParams.get('city') || token.scope.city || undefined,
       category: searchParams.get('category') || undefined,

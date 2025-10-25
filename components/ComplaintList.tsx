@@ -22,29 +22,19 @@ export default function ComplaintList() {
 
         // Initialize filters from URL parameters
         useEffect(() => {
-                if (!initialized) {
-                        const urlStatus = searchParams.get('status');
-                        const urlFilter = searchParams.get('filter');
-                        
-                        let initialStatus = '';
-                        
-                        if (urlStatus) {
-                                initialStatus = urlStatus;
-                        } else if (urlFilter === 'active') {
-                                // For "In Progress", show both pending AND in_progress
-                                initialStatus = 'pending,in_progress';
-                        } else if (urlFilter === 'overdue') {
-                                // For "Delayed", show both stalled AND revived
-                                initialStatus = 'stalled,revived';
-                        }
-                        
-                        if (initialStatus) {
-                                setFilters(prev => ({ ...prev, status: initialStatus }));
-                        }
-                        
-                        setInitialized(true);
-                }
-        }, [searchParams, initialized]);
+                const urlStatus = searchParams.get('status') || '';
+                
+                // Reset all filters to match URL (including when URL has no params)
+                setFilters({
+                        status: urlStatus,
+                        state: '',
+                        city: '',
+                        category: '',
+                        page: 1,
+                });
+                
+                setInitialized(true);
+        }, [searchParams]);
 
         useEffect(() => {
                 if (initialized) {
@@ -114,12 +104,9 @@ export default function ComplaintList() {
         }
 
         const getPageTitle = () => {
-                const urlFilter = searchParams.get('filter');
-                const urlStatus = searchParams.get('status');
-                
-                if (urlStatus === 'resolved') return 'Resolved Complaints';
-                if (urlFilter === 'active') return 'Active Complaints (Pending & In Progress)';
-                if (urlFilter === 'overdue') return 'Delayed Complaints (Stalled & Revived)';
+                if (filters.status === 'resolved') return 'Resolved Complaints';
+                if (filters.status === 'pending,in_progress') return 'Active Complaints (Pending & In Progress)';
+                if (filters.status === 'stalled,revived') return 'Delayed Complaints (Stalled & Revived)';
                 if (filters.status) {
                         // Check if multiple statuses
                         if (filters.status.includes(',')) {
@@ -219,6 +206,8 @@ export default function ComplaintList() {
                                                         onChange={(e) => handleFilterChange('status', e.target.value)}
                                                 >
                                                         <option value="">All</option>
+                                                        <option value="pending,in_progress">Active (Pending & In Progress)</option>
+                                                        <option value="stalled,revived">Delayed (Stalled & Revived)</option>
                                                         <option value="pending">Pending</option>
                                                         <option value="in_progress">In Progress</option>
                                                         <option value="resolved">Resolved</option>

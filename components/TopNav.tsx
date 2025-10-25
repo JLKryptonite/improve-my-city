@@ -8,12 +8,12 @@ export default function TopNav() {
                                         Improve My City
                                 </Link>
                                 <nav className="flex items-center gap-4">
-                                        {/* <Link
+                                        <Link
                                                 href="/complaints"
                                                 className="text-sm"
                                         >
                                                 Browse
-                                        </Link> */}
+                                        </Link>
                                         <Link
                                                 href="/authority/login"
                                                 className="text-sm font-medium border px-3 py-1.5 rounded-md"

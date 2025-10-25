@@ -44,7 +44,7 @@ export default function StatsBar({ metrics, loading }: StatsBarProps) {
                                 </Link>
 
                                 {/* In Progress Box */}
-                                <Link href="/complaints?filter=active" className="block">
+                                <Link href="/complaints?status=pending,in_progress" className="block">
                                         <div className="w-48 h-48 bg-white/95 backdrop-blur-md rounded-xl shadow-2xl p-6 flex flex-col items-center justify-center border-l-4 border-yellow-500 hover:bg-white hover:shadow-yellow-200 hover:scale-105 transition-all duration-300 cursor-pointer">
                                                 <div className="text-yellow-500 text-3xl mb-3">
                                                         ⏱
@@ -62,7 +62,7 @@ export default function StatsBar({ metrics, loading }: StatsBarProps) {
                                 </Link>
 
                                 {/* Delayed Box */}
-                                <Link href="/complaints?filter=overdue" className="block">
+                                <Link href="/complaints?status=stalled,revived" className="block">
                                         <div className="w-48 h-48 bg-white/95 backdrop-blur-md rounded-xl shadow-2xl p-6 flex flex-col items-center justify-center border-l-4 border-red-500 hover:bg-white hover:shadow-red-200 hover:scale-105 transition-all duration-300 cursor-pointer">
                                                 <div className="text-red-500 text-3xl mb-3">
                                                         ⚠
