@@ -8,44 +8,68 @@ interface StatsBarProps {
 export default function StatsBar({ metrics, loading }: StatsBarProps) {
         if (loading || !metrics) {
                 return (
-                        <div className="grid grid-cols-3 gap-3">
-                                {[1, 2, 3].map((i) => (
-                                        <div
-                                                key={i}
-                                                className="h-16 bg-white rounded-xl shadow-sm animate-pulse"
-                                        />
-                                ))}
+                        <div className="flex justify-center">
+                                <div className="grid grid-cols-3 gap-8">
+                                        {[1, 2, 3].map((i) => (
+                                                <div
+                                                        key={i}
+                                                        className="w-48 h-48 bg-white/69 backdrop-blur-sm rounded-xl shadow-lg animate-pulse hover:bg-white/100 hover:scale-105 transition-all duration-300"
+                                                />
+                                        ))}
+                                </div>
                         </div>
                 );
         }
 
         return (
-                <div className="grid grid-cols-3 gap-3">
-                        <div className="bg-white rounded-xl shadow-sm p-4">
-                                <div className="text-sm text-gray-500">
-                                        Resolved
+                <div className="flex justify-center">
+                        <div className="grid grid-cols-3 gap-8">
+                                {/* Resolved Box */}
+                                <div className="w-48 h-48 bg-white/69 backdrop-blur-sm rounded-xl shadow-lg p-6 flex flex-col items-center justify-center border-l-4 border-green-500 hover:bg-white/100 hover:scale-105 transition-all duration-300">
+                                        <div className="text-green-500 text-3xl mb-3">
+                                                ✓
+                                        </div>
+                                        <div className="text-base text-gray-600 font-medium text-center">
+                                                Resolved
+                                        </div>
+                                        <div className="text-3xl font-bold text-green-700">
+                                                {metrics.resolved}
+                                        </div>
+                                        <div className="text-sm text-gray-500">
+                                                Reports
+                                        </div>
                                 </div>
-                                <div className="text-2xl font-bold text-green-700">
-                                        {metrics.resolved}
+
+                                {/* In Progress Box */}
+                                <div className="w-48 h-48 bg-white/69 backdrop-blur-sm rounded-xl shadow-lg p-6 flex flex-col items-center justify-center border-l-4 border-yellow-500 hover:bg-white/100 hover:scale-105 transition-all duration-300">
+                                        <div className="text-yellow-500 text-3xl mb-3">
+                                                ⏱
+                                        </div>
+                                        <div className="text-base text-gray-600 font-medium text-center">
+                                                In Progress
+                                        </div>
+                                        <div className="text-3xl font-bold text-yellow-600">
+                                                {metrics.active}
+                                        </div>
+                                        <div className="text-sm text-gray-500">
+                                                Reports
+                                        </div>
                                 </div>
-                        </div>
-                        <div className="bg-white rounded-xl shadow-sm p-4">
-                                <div className="text-sm text-gray-500">
-                                        Active (Pending/In-Progress)
-                                </div>
-                                <div className="text-2xl font-bold text-yellow-600">
-                                        {metrics.active}
-                                </div>
-                        </div>
-                        <div className="bg-white rounded-xl shadow-sm p-4">
-                                <div className="text-sm text-gray-500">
-                                        Overdue
-                                </div>
-                                <div className="text-xs text-gray-500">
-                                        Stalled / Revived
-                                </div>
-                                <div className="text-2xl font-bold text-red-700">
-                                        {metrics.overdue}
+
+                                {/* Delayed Box */}
+                                <div className="w-48 h-48 bg-white/69 backdrop-blur-sm rounded-xl shadow-lg p-6 flex flex-col items-center justify-center border-l-4 border-red-500 hover:bg-white/100 hover:scale-105 transition-all duration-300">
+                                        <div className="text-red-500 text-3xl mb-3">
+                                                ⚠
+                                        </div>
+                                        <div className="text-base text-gray-600 font-medium text-center">
+                                                Delayed
+                                        </div>
+                                        <div className="text-3xl font-bold text-red-700">
+                                                {metrics.overdue}
+                                        </div>
+                                        <div className="text-sm text-gray-500">
+                                                Reports
+                                        </div>
                                 </div>
                         </div>
                 </div>

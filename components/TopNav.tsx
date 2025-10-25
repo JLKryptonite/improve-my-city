@@ -15,12 +15,6 @@ export default function TopNav() {
                                                 Browse
                                         </Link>
                                         <Link
-                                                href="/report"
-                                                className="text-sm font-medium border px-3 py-1.5 rounded-md"
-                                        >
-                                                Report Issue
-                                        </Link>
-                                        <Link
                                                 href="/authority/login"
                                                 className="text-sm font-medium border px-3 py-1.5 rounded-md"
                                         >

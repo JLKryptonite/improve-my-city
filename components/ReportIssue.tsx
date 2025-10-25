@@ -4,6 +4,13 @@ import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { publicApi } from "@/lib/api";
+import dynamic from "next/dynamic";
+
+// Dynamically import the map component to avoid SSR issues
+const MapComponent = dynamic(() => import('./MapPreview'), { 
+        ssr: false,
+        loading: () => <div className="h-40 bg-gray-100 rounded grid place-items-center text-xs text-gray-600">Loading map...</div>
+});
 
 // Helper: SHA-256 to prevent uploading the exact same photo twice
 async function sha256hex(file: File) {
@@ -303,7 +310,7 @@ export default function ReportIssue() {
                                                         Enter manually
                                                 </label>
                                         </div>
-                                        <div className="grid md:grid-cols-3 gap-2">
+                                        <div className="grid md:grid-cols-2 gap-2">
                                                 <div>
                                                         <label className="block text-xs">
                                                                 Latitude
@@ -352,28 +359,12 @@ export default function ReportIssue() {
                                                                 placeholder="e.g., 77.2090"
                                                         />
                                                 </div>
-                                                <div>
-                                                        <label className="block text-xs">
-                                                                Accuracy (m)
-                                                        </label>
-                                                        <input
-                                                                className="w-full border rounded p-2"
-                                                                value={acc}
-                                                                onChange={(e) =>
-                                                                        setAcc(
-                                                                                parseInt(
-                                                                                        e
-                                                                                                .target
-                                                                                                .value
-                                                                                ) ||
-                                                                                        50
-                                                                        )
-                                                                }
-                                                        />
-                                                </div>
                                         </div>
-                                        <div className="h-40 bg-gray-100 rounded grid place-items-center text-xs text-gray-600">
-                                                [ Map preview placeholder ]
+                                        <div className="h-40 rounded overflow-hidden">
+                                                <MapComponent 
+                                                        latitude={lat} 
+                                                        longitude={lng} 
+                                                />
                                         </div>
                                 </div>
 
