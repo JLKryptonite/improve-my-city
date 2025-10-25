@@ -1,48 +1,138 @@
-# Improve My City — Full Stack Scaffold (React + Node/Express + MongoDB)
+# Improve My City — Next.js Full Stack Application
 
-This canvas contains a **runnable scaffold** with:
+A civic engagement platform that allows citizens to report infrastructure issues with photos and location data, while enabling government authorities to manage, track, and resolve these complaints efficiently.
 
-- **Frontend**: React + Vite + Tailwind, public landing (national view), **Authority login** entry (top-right), and basic screens.
-- **Backend**: Node + Express + TypeScript + Mongoose, RBAC for **Developer Admin** vs **Authority Admin**, complaint CRUD, duplicate check hooks, **merge API**, and status engines (stalled/revived/resolved).
-- **Shared Semantics** aligned to our whiteboard spec (Stalled/Revived, Holds, No-Progress cadence, EXIF validation stubs).
+## Features
 
-> Notes:
->
-> - Replace placeholders like `YOUR_MONGO_URI`, `JWT_SECRET`, and `DEV_ADMIN_KEY` in `.env`.
-> - EXIF + image storage are stubbed behind interfaces so we can swap implementations.
+- **Public Interface**: Citizens can report issues with location and photos
+- **Authority Interface**: Government officials can login and manage complaints (start progress, put on hold, resolve, merge)
+- **Image Processing**: EXIF validation, compression, storage
+- **Duplicate Detection**: Finds similar complaints nearby
+- **Status Management**: Complex workflow with pending, in_progress, stalled, revived, resolved statuses
+- **Timeline Tracking**: Complete audit trail of all actions
+- **Geospatial Queries**: MongoDB with 2dsphere indexing for location-based searches
 
----
+## Tech Stack
 
-## README.md (quick start)
+- **Frontend**: Next.js 15 + React 18 + TypeScript + Tailwind CSS
+- **Backend**: Next.js API Routes + MongoDB + Mongoose
+- **Authentication**: JWT with bcrypt password hashing
+- **Image Processing**: Sharp for compression, EXIF parsing
+- **File Storage**: Local storage (configurable for cloud storage)
 
-```md
-# Improve My City — Quick Start
+## Quick Start
 
-## Prereqs
+### Prerequisites
 
-- Node 20+
+- Node.js 20+
 - MongoDB running locally
 
-## Backend
+### Setup
 
-cd backend
-cp ../.env.example .env # edit values
-npm i
-npm run dev
+1. **Clone and install dependencies:**
+   ```bash
+   npm install
+   ```
 
-## Frontend
+2. **Set up environment variables:**
+   Create a `.env.local` file in the root directory:
+   ```env
+   MONGO_URI=mongodb://localhost:27017/improve-my-city
+   JWT_SECRET=your-jwt-secret-key-here
+   DEV_ADMIN_KEY=dev-admin-key
+   NEXTAUTH_SECRET=your-nextauth-secret
+   NEXTAUTH_URL=http://localhost:3000
+   ```
 
-cd ../frontend
-npm i
-npm run dev
+3. **Start the development server:**
+   ```bash
+   npm run dev
+   ```
 
-Open http://localhost:5173
+4. **Open your browser:**
+   Navigate to [http://localhost:3000](http://localhost:3000)
 
-- Landing shows national metrics
-- Authority login at /authority/login
-- Overdue queues visible post-login
+### Project Structure
 
-## Developer Admin
-
-Call POST http://localhost:4000/api/developer/jobs/overdue-sweep with header `x-dev-key: DEV_ADMIN_KEY`
 ```
+improve-my-city/
+├── app/                    # Next.js app directory
+│   ├── api/               # API routes
+│   ├── authority/         # Authority pages
+│   ├── complaints/        # Complaint pages
+│   ├── report/            # Report issue page
+│   ├── globals.css        # Global styles
+│   ├── layout.tsx         # Root layout
+│   └── page.tsx           # Home page
+├── components/            # React components
+├── lib/                   # Utilities and services
+├── models/                # MongoDB models
+├── public/                # Static assets
+├── types/                 # TypeScript types
+└── package.json
+```
+
+## API Endpoints
+
+### Public API
+- `GET /api/metrics` - Get dashboard metrics
+- `GET /api/complaints` - List complaints with filters
+- `POST /api/complaints` - Create new complaint
+- `GET /api/complaints/[id]` - Get complaint details
+- `POST /api/complaints/[id]/no-progress` - Append no-progress update
+
+### Authority API (requires authentication)
+- `POST /api/authority/login` - Login
+- `GET /api/authority/complaints` - List complaints for authority
+- `GET /api/authority/complaints/[id]` - Get complaint details
+- `POST /api/authority/complaints/[id]/start-progress` - Start progress
+- `POST /api/authority/complaints/[id]/progress` - Update progress
+- `POST /api/authority/complaints/[id]/hold` - Put complaint on hold
+- `POST /api/authority/complaints/[id]/resolve` - Mark as resolved
+- `POST /api/authority/complaints/[id]/merge` - Merge complaints
+
+## Pages
+
+- `/` - Landing page with metrics
+- `/complaints` - Browse complaints with filters
+- `/complaints/[id]` - Complaint details
+- `/report` - Report new issue form
+- `/authority/login` - Authority login
+- `/authority` - Authority dashboard (overdue complaints)
+
+## Development
+
+### Adding New Features
+
+1. **API Routes**: Add new routes in `app/api/`
+2. **Pages**: Add new pages in `app/` directory
+3. **Components**: Add reusable components in `components/`
+4. **Types**: Add new types in `types/`
+
+### Environment Variables
+
+- `MONGO_URI` - MongoDB connection string
+- `JWT_SECRET` - Secret key for JWT tokens
+- `DEV_ADMIN_KEY` - Developer admin key
+- `NEXTAUTH_SECRET` - NextAuth secret
+- `NEXTAUTH_URL` - Base URL for the application
+
+## Production Deployment
+
+1. Set up environment variables for production
+2. Configure image storage (currently uses local storage)
+3. Set up proper CORS and security headers
+4. Configure MongoDB for production
+5. Build and deploy: `npm run build && npm start`
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Test thoroughly
+5. Submit a pull request
+
+## License
+
+This project is licensed under the MIT License.
