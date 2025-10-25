@@ -26,31 +26,13 @@ async function debugLogin() {
     console.log('✅ Connected to MongoDB');
 
     // Try to find the user with the exact same query as the API
-    const AuthorityUser = mongoose.model('AuthorityUser', AuthorityUserSchema);
-    
-    console.log('🔍 Looking for user: admin@city.gov.in');
-    const user = await AuthorityUser.findOne({ email: 'admin@city.gov.in' });
-    
+    const AuthorityUser = mongoose.model('AuthorityUser', AuthorityUserSchema, 'authorityusers');
+
+    console.log('🔍 Looking for user: abc@city.gov.in');
+    const user = await AuthorityUser.findOne({ email: 'abc@city.gov.in' });
+
     if (!user) {
-      console.log('❌ User not found with AuthorityUser model');
-      
-      // Try with the exact collection name
-      console.log('🔍 Trying with collection name...');
-      const AuthorityUserDirect = mongoose.model('AuthorityUser', AuthorityUserSchema, 'authorityusers');
-      const userDirect = await AuthorityUserDirect.findOne({ email: 'admin@city.gov.in' });
-      
-      if (userDirect) {
-        console.log('✅ User found with direct collection reference');
-        console.log('User details:', {
-          email: userDirect.email,
-          name: userDirect.name,
-          state: userDirect.state,
-          city: userDirect.city,
-          role: userDirect.role
-        });
-      } else {
-        console.log('❌ User still not found');
-      }
+      console.log('❌ User not found');
     } else {
       console.log('✅ User found with AuthorityUser model');
       console.log('User details:', {
@@ -58,8 +40,15 @@ async function debugLogin() {
         name: user.name,
         state: user.state,
         city: user.city,
-        role: user.role
+        role: user.role,
+        hasPasswordHash: !!user.password_hash
       });
+
+      // Test password verification
+      const bcrypt = require('bcryptjs');
+      console.log('🔐 Testing password verification...');
+      const isValid = await bcrypt.compare('1234', user.password_hash);
+      console.log('Password verification result:', isValid ? '✅ Valid' : '❌ Invalid');
     }
 
   } catch (error) {

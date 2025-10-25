@@ -1,50 +1,59 @@
 import { NextRequest, NextResponse } from 'next/server';
 import dbConnect from '@/lib/db';
-import AuthorityUser from '@/models/AuthorityUser';
 import { verifyPassword, generateToken } from '@/lib/auth';
+import mongoose from 'mongoose';
+
+// Define the schema locally to avoid model registration issues
+const AuthorityUserSchema = new mongoose.Schema(
+  {
+    email: { type: String, unique: true, required: true },
+    password_hash: { type: String, required: true },
+    name: String,
+    state: String,
+    city: String,
+    ward_ids: [String],
+    dept_id: String,
+    role: {
+      type: String,
+      enum: ["authority_admin"],
+      default: "authority_admin",
+    },
+  },
+  { timestamps: true }
+);
+
+const AuthorityUser = mongoose.models.AuthorityUser || mongoose.model("AuthorityUser", AuthorityUserSchema, "authorityusers");
 
 export async function POST(request: NextRequest) {
   try {
-    console.log('🔍 Login API called');
     await dbConnect();
-    console.log('✅ Database connected');
 
     const { email, password } = await request.json();
-    console.log('📧 Email:', email);
 
     if (!email || !password) {
-      console.log('❌ Missing email or password');
       return NextResponse.json(
         { error: 'Email and password are required' },
         { status: 400 }
       );
     }
 
-    console.log('🔍 Looking for user...');
     const user = await AuthorityUser.findOne({ email });
     if (!user) {
-      console.log('❌ User not found');
       return NextResponse.json(
         { error: 'Invalid credentials' },
         { status: 401 }
       );
     }
-    console.log('✅ User found:', user.email);
 
-    console.log('🔐 Verifying password...');
     const isValidPassword = await verifyPassword(password, user.password_hash);
     if (!isValidPassword) {
-      console.log('❌ Invalid password');
       return NextResponse.json(
         { error: 'Invalid credentials' },
         { status: 401 }
       );
     }
-    console.log('✅ Password verified');
 
-    console.log('🎫 Generating token...');
     const token = await generateToken(user);
-    console.log('✅ Token generated');
 
     return NextResponse.json({
       token,

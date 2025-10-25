@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import { config } from './config';
 
-const MONGODB_URI = config.mongodb.uri;
+const MONGODB_URI = "mongodb://localhost:27017/improve-my-city";
 
 if (!MONGODB_URI) {
   throw new Error('Please define the MONGO_URI environment variable inside .env.local');
@@ -32,7 +32,6 @@ async function dbConnect(): Promise<typeof mongoose> {
     };
 
     cached.promise = mongoose.connect(MONGODB_URI, opts).then((mongoose) => {
-      console.log('Connected to MongoDB');
       return mongoose;
     });
   }
