@@ -1,7 +1,0 @@
-{
-  "/api/complaints/route": "app/api/complaints/route.js",
-  "/api/metrics/route": "app/api/metrics/route.js",
-  "/complaints/page": "app/complaints/page.js",
-  "/page": "app/page.js",
-  "/authority/login/page": "app/authority/login/page.js"
-}
