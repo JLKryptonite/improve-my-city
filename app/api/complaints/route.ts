@@ -110,18 +110,11 @@ export async function POST(request: NextRequest) {
     const images = formData.getAll('images') as File[];
 
     // Validate required fields
-    if (!category || !description || !latitude || !longitude) {
+    if (!category || !latitude || !longitude) {
       return NextResponse.json(
         {
-          error: 'Category, description, latitude, and longitude are required'
+          error: 'Category, latitude, and longitude are required'
         },
-        { status: 400 }
-      );
-    }
-
-    if (!images || images.length < 1) {
-      return NextResponse.json(
-        { error: 'At least one image is required' },
         { status: 400 }
       );
     }

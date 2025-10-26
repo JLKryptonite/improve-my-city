@@ -2,74 +2,127 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { publicApi } from "@/lib/api";
 import StatsBar from "@/components/StatsBar";
 import type { MetricsData } from "@/types";
 
 export default function Landing() {
-        const [metrics, setMetrics] = useState<MetricsData | null>(null);
-        const [loading, setLoading] = useState(true);
-        const [error, setError] = useState<string | null>(null);
+	const [metrics, setMetrics] = useState<MetricsData | null>(null);
+	const [loading, setLoading] = useState(true);
+	const [error, setError] = useState<string | null>(null);
+	const [searchQuery, setSearchQuery] = useState("");
+	const router = useRouter();
 
-        useEffect(() => {
-                publicApi.getMetrics()
-                        .then((data) => {
-                                setMetrics(data);
-                                setLoading(false);
-                        })
-                        .catch((err) => {
-                                setError(err.message || 'Failed to load metrics');
-                                setLoading(false);
-                        });
-        }, []);
+	useEffect(() => {
+		publicApi.getMetrics()
+			.then((data) => {
+				setMetrics(data);
+				setLoading(false);
+			})
+			.catch((err) => {
+				setError(err.message || 'Failed to load metrics');
+				setLoading(false);
+			});
+	}, []);
 
-        if (error) {
-                return (
-                        <div className="space-y-6">
-                                <div className="text-center space-y-2">
-                                        <h1 className="text-2xl font-bold">
-                                                See how citizens are improving their city
-                                        </h1>
-                                        <p className="text-sm text-red-600">
-                                                {error}
-                                        </p>
-                                </div>
-                        </div>
-                );
-        }
+	const handleSearch = (e: React.FormEvent) => {
+		e.preventDefault();
+		if (searchQuery.trim()) {
+			router.push(`/complaints/${searchQuery.trim()}`);
+		}
+	};
 
-        return (
-                <div className="space-y-8">
-                        <div className="text-center space-y-2">
-                                <h1 className="text-2xl font-bold text-white">
-                                        See how citizens are improving their city
-                                </h1>
-                                <p className="text-sm text-gray-200">
-                                        National overview by default. Provide your location to zoom into your area.
-                                </p>
-                        </div>
-                        
-                        {/* Search Bar */}
-                        <div className="flex justify-center">
-                                <div className="w-full max-w-md">
-                                        <input
-                                                type="text"
-                                                placeholder="Search by complaint number"
-                                                className="w-full px-4 py-3 rounded-lg border border-gray-300 bg-white/90 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                                        />
-                                </div>
-                        </div>
+	if (error) {
+		return (
+			<div className="space-y-6 animate-fadeIn">
+				<div className="text-center space-y-4 py-12">
+					<div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto">
+						<svg className="w-8 h-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+						</svg>
+					</div>
+					<h1 className="text-3xl font-bold text-gray-900">
+						See how citizens are improving their city
+					</h1>
+					<p className="text-base text-red-600 bg-red-50 border border-red-200 rounded-lg px-4 py-3 max-w-md mx-auto">
+						{error}
+					</p>
+				</div>
+			</div>
+		);
+	}
 
-                        <StatsBar metrics={metrics} loading={loading} />
-                        
-                        <div className="flex justify-center">
-                                <Link
-                                        href="/report"
-                                        className="bg-blue-600 hover:bg-blue-700 text-white font-medium px-8 py-4 rounded-lg transition-colors text-lg"
-                                >
-                                        File a Complaint
-                                </Link>
-                        </div>
-                </div>
-        );
+	return (
+		<div className="space-y-12 animate-fadeIn">
+			{/* Hero Section */}
+			<div className="text-center space-y-6 pt-8">
+				<div className="space-y-3">
+					<h1 className="text-4xl md:text-5xl font-bold text-white drop-shadow-lg">
+						See how citizens are improving their city
+					</h1>
+					<p className="text-base md:text-lg text-gray-100 max-w-2xl mx-auto drop-shadow">
+						National overview by default. Provide your location to zoom into your area.
+					</p>
+				</div>
+				
+				{/* Trust indicators */}
+				<div className="flex items-center justify-center gap-6 text-white/90 text-sm">
+					<div className="flex items-center gap-2">
+						<svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+							<path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+						</svg>
+						<span>Fast Response</span>
+					</div>
+					<div className="flex items-center gap-2">
+						<svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+							<path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z" />
+						</svg>
+						<span>Transparent Updates</span>
+					</div>
+					<div className="flex items-center gap-2">
+						<svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+							<path fillRule="evenodd" d="M5 2a1 1 0 011 1v1h1a1 1 0 010 2H6v1a1 1 0 01-2 0V6H3a1 1 0 010-2h1V3a1 1 0 011-1zm0 10a1 1 0 011 1v1h1a1 1 0 110 2H6v1a1 1 0 11-2 0v-1H3a1 1 0 110-2h1v-1a1 1 0 011-1zM12 2a1 1 0 01.967.744L14.146 7.2 17.5 9.134a1 1 0 010 1.732l-3.354 1.935-1.18 4.455a1 1 0 01-1.933 0L9.854 12.8 6.5 10.866a1 1 0 010-1.732l3.354-1.935 1.18-4.455A1 1 0 0112 2z" clipRule="evenodd" />
+						</svg>
+						<span>Proven Results</span>
+					</div>
+				</div>
+			</div>
+			
+			{/* Search Bar */}
+			<div className="flex justify-center px-4">
+				<form onSubmit={handleSearch} className="w-full max-w-2xl">
+					<div className="relative group">
+						<div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+							<svg className="h-5 w-5 text-gray-400 group-focus-within:text-blue-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+							</svg>
+						</div>
+						<input
+							type="text"
+							value={searchQuery}
+							onChange={(e) => setSearchQuery(e.target.value)}
+							placeholder="Search by complaint ID (e.g., 67397cd12da1d1d4f38c86a3)"
+							className="w-full pl-12 pr-4 py-4 rounded-xl border-2 border-gray-200 bg-white shadow-lg focus:outline-none focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 transition-all duration-200 text-gray-900 placeholder-gray-400"
+						/>
+					</div>
+				</form>
+			</div>
+
+			<StatsBar metrics={metrics} loading={loading} />
+			
+			<div className="flex justify-center pb-8">
+				<Link
+					href="/report"
+					className="group relative inline-flex items-center gap-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold px-10 py-5 rounded-xl shadow-2xl hover:shadow-blue-500/50 transition-all duration-300 hover:scale-105 text-lg"
+				>
+					<svg className="w-6 h-6 group-hover:rotate-90 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+						<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 4v16m8-8H4" />
+					</svg>
+					File a Complaint
+					<div className="absolute inset-0 rounded-xl bg-white opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
+				</Link>
+			</div>
+		</div>
+	);
 }

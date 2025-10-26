@@ -91,10 +91,6 @@ export default function ReportIssue() {
                 setMessage("");
                 setSuggested([]);
 
-                if (files.length < 1) {
-                        setMessage("Please add at least one photo.");
-                        return;
-                }
                 if (lat === "" || lng === "") {
                         setMessage(
                                 "Please provide a location (auto or manual)."
@@ -173,24 +169,32 @@ export default function ReportIssue() {
         }
 
         return (
-                <div className="max-w-2xl mx-auto bg-white rounded-xl shadow p-4 space-y-4">
-                        <div className="flex items-center justify-between">
-                                <h2 className="text-xl font-semibold">
-                                        Report an Issue
-                                </h2>
-                                <Link href="/" className="text-sm underline">
-                                        Back to Home
+                <div className="max-w-3xl mx-auto bg-white rounded-2xl shadow-lg border border-gray-100 p-6 md:p-8 space-y-6">
+                        <div className="flex items-center justify-between border-b pb-4">
+                                <div>
+                                        <h2 className="text-2xl md:text-3xl font-bold text-gray-900">
+                                                Report an Issue
+                                        </h2>
+                                        <p className="text-sm text-gray-500 mt-1">
+                                                Help improve your city by reporting problems
+                                        </p>
+                                </div>
+                                <Link 
+                                        href="/" 
+                                        className="text-sm font-medium text-blue-600 hover:text-blue-700 hover:underline transition-colors"
+                                >
+                                        ← Back to Home
                                 </Link>
                         </div>
 
-                        <form className="space-y-4" onSubmit={submit}>
+                        <form className="space-y-6" onSubmit={submit}>
                                 {/* Category */}
                                 <div>
-                                        <label className="block text-sm mb-1">
-                                                Category
+                                        <label className="block text-sm font-semibold text-gray-700 mb-2">
+                                                Category <span className="text-red-500">*</span>
                                         </label>
                                         <select
-                                                className="w-full border rounded p-2"
+                                                className="w-full border-2 border-gray-200 rounded-lg p-3 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all outline-none bg-white text-gray-900 cursor-pointer hover:border-gray-300"
                                                 value={category}
                                                 onChange={(e) =>
                                                         setCategory(
@@ -199,80 +203,80 @@ export default function ReportIssue() {
                                                 }
                                         >
                                                 <option value="pothole">
-                                                        Pothole
+                                                        🕳️ Pothole
                                                 </option>
                                                 <option value="streetlight">
-                                                        Streetlight
+                                                        💡 Streetlight
                                                 </option>
                                                 <option value="garbage">
-                                                        Garbage Overflow
+                                                        🗑️ Garbage Overflow
                                                 </option>
                                                 <option value="water">
-                                                        Water Leakage
+                                                        💧 Water Leakage
                                                 </option>
                                                 <option value="tree">
-                                                        Fallen Tree / Debris
+                                                        🌳 Fallen Tree / Debris
                                                 </option>
                                         </select>
                                 </div>
 
                                 {/* Description */}
                                 <div>
-                                        <label className="block text-sm mb-1">
-                                                Description (optional)
+                                        <label className="block text-sm font-semibold text-gray-700 mb-2">
+                                                Description <span className="text-gray-400 font-normal">(optional)</span>
                                         </label>
                                         <textarea
-                                                className="w-full border rounded p-2"
-                                                rows={3}
+                                                className="w-full border-2 border-gray-200 rounded-lg p-3 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all outline-none resize-none hover:border-gray-300"
+                                                rows={4}
                                                 value={desc}
                                                 onChange={(e) =>
                                                         setDesc(e.target.value)
                                                 }
-                                                placeholder="Add any helpful details (e.g., lane name, landmarks)"
+                                                placeholder="Add any helpful details (e.g., lane name, landmarks, severity)..."
                                         />
                                 </div>
 
                                 {/* Photos */}
                                 <div>
-                                        <div className="flex items-center justify-between">
-                                                <label className="block text-sm font-medium">
-                                                        Photos{" "}
-                                                        <span className="text-red-600">
-                                                                *
-                                                        </span>
-                                                </label>
-                                                <span className="text-xs text-amber-600">
-                                                        Adding a few clear
-                                                        photos from different
-                                                        angles helps authorities
-                                                        judge severity faster
-                                                        and dispatch the right
-                                                        team on the first go.
-                                                </span>
+                                        <label className="block text-sm font-semibold text-gray-700 mb-2">
+                                                Photos <span className="text-gray-400 font-normal">(optional)</span>
+                                        </label>
+                                        <div className="bg-gradient-to-br from-blue-50 to-indigo-50 border-2 border-dashed border-blue-300 rounded-lg p-4 hover:border-blue-400 transition-colors">
+                                                <div className="flex items-start gap-3">
+                                                        <div className="flex-shrink-0 text-2xl">
+                                                                📸
+                                                        </div>
+                                                        <div className="flex-1">
+                                                                <p className="text-xs text-blue-800 font-medium mb-2">
+                                                                        💡 Pro tip: Adding clear photos from different angles helps authorities assess severity faster and dispatch the right team!
+                                                                </p>
+                                                                <input
+                                                                        ref={fileInputRef}
+                                                                        type="file"
+                                                                        accept="image/jpeg,image/png"
+                                                                        multiple
+                                                                        onChange={(e) =>
+                                                                                onFilesSelected(
+                                                                                        e.target.files
+                                                                                )
+                                                                        }
+                                                                        className="block w-full text-sm text-gray-600 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-600 file:text-white hover:file:bg-blue-700 file:cursor-pointer cursor-pointer file:transition-colors"
+                                                                />
+                                                        </div>
+                                                </div>
                                         </div>
-                                        <input
-                                                ref={fileInputRef}
-                                                type="file"
-                                                accept="image/jpeg,image/png"
-                                                multiple
-                                                onChange={(e) =>
-                                                        onFilesSelected(
-                                                                e.target.files
-                                                        )
-                                                }
-                                                className="block w-full border rounded p-2 mt-1"
-                                        />
                                         {files.length > 0 && (
-                                                <div className="flex gap-2 mt-2 flex-wrap">
+                                                <div className="flex gap-2 mt-3 flex-wrap">
                                                         {files.map((f, i) => (
                                                                 <span
                                                                         key={i}
-                                                                        className="text-xs bg-gray-100 rounded px-2 py-1 flex items-center gap-2"
+                                                                        className="text-xs bg-green-100 border border-green-300 text-green-800 rounded-lg px-3 py-2 flex items-center gap-2 font-medium shadow-sm"
                                                                 >
+                                                                        <span className="text-base">✓</span>
                                                                         {f.name}
                                                                         <button
                                                                                 type="button"
-                                                                                className="text-red-600"
+                                                                                className="text-red-600 hover:text-red-800 font-bold ml-1 hover:scale-110 transition-transform"
                                                                                 onClick={() =>
                                                                                         removeFile(
                                                                                                 i
@@ -288,12 +292,12 @@ export default function ReportIssue() {
                                 </div>
 
                                 {/* Location */}
-                                <div className="space-y-2">
+                                <div className="space-y-3">
                                         <div className="flex items-center justify-between">
-                                                <label className="block text-sm font-medium">
-                                                        Location
+                                                <label className="block text-sm font-semibold text-gray-700">
+                                                        📍 Location <span className="text-red-500">*</span>
                                                 </label>
-                                                <label className="text-xs flex items-center gap-2">
+                                                <label className="text-xs flex items-center gap-2 bg-gray-100 px-3 py-1.5 rounded-full cursor-pointer hover:bg-gray-200 transition-colors">
                                                         <input
                                                                 type="checkbox"
                                                                 checked={
@@ -306,17 +310,18 @@ export default function ReportIssue() {
                                                                                         .checked
                                                                         )
                                                                 }
+                                                                className="rounded"
                                                         />
-                                                        Enter manually
+                                                        <span className="font-medium text-gray-700">Enter manually</span>
                                                 </label>
                                         </div>
-                                        <div className="grid md:grid-cols-2 gap-2">
+                                        <div className="grid md:grid-cols-2 gap-3">
                                                 <div>
-                                                        <label className="block text-xs">
+                                                        <label className="block text-xs font-medium text-gray-600 mb-1.5">
                                                                 Latitude
                                                         </label>
                                                         <input
-                                                                className="w-full border rounded p-2"
+                                                                className="w-full border-2 border-gray-200 rounded-lg p-3 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all outline-none hover:border-gray-300"
                                                                 value={lat}
                                                                 onChange={(e) =>
                                                                         setLat(
@@ -336,11 +341,11 @@ export default function ReportIssue() {
                                                         />
                                                 </div>
                                                 <div>
-                                                        <label className="block text-xs">
+                                                        <label className="block text-xs font-medium text-gray-600 mb-1.5">
                                                                 Longitude
                                                         </label>
                                                         <input
-                                                                className="w-full border rounded p-2"
+                                                                className="w-full border-2 border-gray-200 rounded-lg p-3 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all outline-none hover:border-gray-300"
                                                                 value={lng}
                                                                 onChange={(e) =>
                                                                         setLng(
@@ -360,7 +365,7 @@ export default function ReportIssue() {
                                                         />
                                                 </div>
                                         </div>
-                                        <div className="h-40 rounded overflow-hidden">
+                                        <div className="h-48 rounded-xl overflow-hidden shadow-md border-2 border-gray-200">
                                                 <MapComponent 
                                                         latitude={lat} 
                                                         longitude={lng} 
@@ -369,59 +374,90 @@ export default function ReportIssue() {
                                 </div>
 
                                 <button
-                                        className="bg-black text-white rounded p-2 disabled:opacity-60"
+                                        className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold rounded-xl p-4 disabled:opacity-60 disabled:cursor-not-allowed transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 active:translate-y-0"
                                         disabled={busy}
                                 >
-                                        {busy ? "Submitting…" : "Submit"}
+                                        {busy ? (
+                                                <span className="flex items-center justify-center gap-2">
+                                                        <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24">
+                                                                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none"></circle>
+                                                                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                                        </svg>
+                                                        Submitting…
+                                                </span>
+                                        ) : (
+                                                "🚀 Submit Report"
+                                        )}
                                 </button>
                         </form>
 
                         {message && (
-                                <div className="text-sm mt-2 p-3 rounded bg-gray-50 border">
-                                        {message}
+                                <div className={`text-sm p-4 rounded-lg border-l-4 ${
+                                        message.includes("created") 
+                                                ? "bg-green-50 border-green-500 text-green-800" 
+                                                : message.includes("similar") 
+                                                ? "bg-amber-50 border-amber-500 text-amber-800"
+                                                : "bg-red-50 border-red-500 text-red-800"
+                                }`}>
+                                        <div className="flex items-start gap-2">
+                                                <span className="text-lg">
+                                                        {message.includes("created") 
+                                                                ? "✅" 
+                                                                : message.includes("similar")
+                                                                ? "⚠️"
+                                                                : "❌"}
+                                                </span>
+                                                <div className="flex-1">
+                                                        {message}
+                                                </div>
+                                        </div>
                                 </div>
                         )}
 
                         {suggested.length > 0 && (
-                                <div className="mt-4 border rounded p-3 bg-amber-50">
-                                        <div className="font-medium mb-2">
-                                                We found similar complaints
-                                                nearby:
+                                <div className="border-2 border-amber-300 rounded-xl p-5 bg-gradient-to-br from-amber-50 to-yellow-50 shadow-md">
+                                        <div className="flex items-center gap-2 mb-4">
+                                                <span className="text-2xl">🔍</span>
+                                                <div>
+                                                        <h3 className="font-bold text-amber-900">
+                                                                Similar Complaints Found Nearby
+                                                        </h3>
+                                                        <p className="text-xs text-amber-700">
+                                                                Consider adding your photos to an existing complaint instead
+                                                        </p>
+                                                </div>
                                         </div>
-                                        <ul className="list-disc ml-5 text-sm space-y-1">
+                                        <div className="space-y-2">
                                                 {suggested.map((s: any) => (
-                                                        <li
+                                                        <div
                                                                 key={s.id}
-                                                                className="flex items-center justify-between gap-2"
+                                                                className="bg-white rounded-lg p-3 border border-amber-200 flex items-center justify-between gap-3 hover:shadow-md transition-shadow"
                                                         >
-                                                                <span>
-                                                                        #{s.id}{" "}
-                                                                        —{" "}
-                                                                        {s.city ||
-                                                                                "Unknown"}
-                                                                        ,{" "}
-                                                                        {s.state ||
-                                                                                "Unknown"}{" "}
-                                                                        —{" "}
-                                                                        {
-                                                                                s.status
-                                                                        }
-                                                                </span>
+                                                                <div className="flex-1">
+                                                                        <div className="font-semibold text-gray-900">
+                                                                                Complaint #{s.id}
+                                                                        </div>
+                                                                        <div className="text-xs text-gray-600 mt-1">
+                                                                                📍 {s.city || "Unknown"}, {s.state || "Unknown"}
+                                                                                {" • "}
+                                                                                <span className="inline-block px-2 py-0.5 bg-blue-100 text-blue-700 rounded-full text-xs font-medium">
+                                                                                        {s.status}
+                                                                                </span>
+                                                                        </div>
+                                                                </div>
                                                                 <button
                                                                         onClick={() =>
                                                                                 appendToExisting(
                                                                                         s.id
                                                                                 )
                                                                         }
-                                                                        className="text-blue-700 underline"
+                                                                        className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-lg transition-colors whitespace-nowrap"
                                                                 >
-                                                                        Confirm
-                                                                        & Add my
-                                                                        photos
+                                                                        Add Photos
                                                                 </button>
-                                                        </li>
+                                                        </div>
                                                 ))}
-                                        </ul>
+                                        </div>
                                 </div>
                         )}
                 </div>
