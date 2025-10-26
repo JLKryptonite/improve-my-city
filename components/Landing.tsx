@@ -61,9 +61,6 @@ export default function Landing() {
 					<h1 className="text-4xl md:text-5xl font-bold text-white" style={{textShadow: '0 4px 12px rgba(0,0,0,0.8), 0 2px 4px rgba(0,0,0,0.6)'}}>
 						See how citizens are improving their city
 					</h1>
-					<p className="text-base md:text-lg text-gray-50 max-w-2xl mx-auto font-medium" style={{textShadow: '0 2px 8px rgba(0,0,0,0.7), 0 1px 3px rgba(0,0,0,0.5)'}}>
-						National overview by default. Provide your location to zoom into your area.
-					</p>
 				</div>
 				
 				{/* Trust indicators */}
