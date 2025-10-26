@@ -11,6 +11,8 @@ A civic engagement platform that allows citizens to report infrastructure issues
 - **Status Management**: Complex workflow with pending, in_progress, stalled, revived, resolved statuses
 - **Timeline Tracking**: Complete audit trail of all actions
 - **Geospatial Queries**: MongoDB with 2dsphere indexing for location-based searches
+- **Modern UI**: Glass morphism design with blurred architectural background
+- **Responsive Design**: Optimized for desktop, tablet, and mobile devices
 
 ## Tech Stack
 
@@ -44,12 +46,17 @@ A civic engagement platform that allows citizens to report infrastructure issues
    NEXTAUTH_URL=http://localhost:3000
    ```
 
-3. **Start the development server:**
+3. **Add background image (optional):**
+   - Save your architectural background image as `building-background.jpg` in the `public/` folder
+   - See `BACKGROUND-IMAGE-SETUP.md` for detailed instructions
+   - The app will work with a gradient background if no image is provided
+
+4. **Start the development server:**
    ```bash
    npm run dev
    ```
 
-4. **Open your browser:**
+5. **Open your browser:**
    Navigate to [http://localhost:3000](http://localhost:3000)
 
 ### Project Structure

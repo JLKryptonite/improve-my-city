@@ -35,17 +35,17 @@ export default function Landing() {
 
 	if (error) {
 		return (
-			<div className="space-y-6 animate-fadeIn">
-				<div className="text-center space-y-4 py-12">
+			<div className="min-h-screen flex items-center justify-center px-4 animate-fadeIn">
+				<div className="text-center space-y-4 py-12 bg-white/95 backdrop-blur-sm rounded-2xl shadow-2xl p-8 max-w-md">
 					<div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto">
 						<svg className="w-8 h-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 							<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
 						</svg>
 					</div>
 					<h1 className="text-3xl font-bold text-gray-900">
-						See how citizens are improving their city
+						Error Loading
 					</h1>
-					<p className="text-base text-red-600 bg-red-50 border border-red-200 rounded-lg px-4 py-3 max-w-md mx-auto">
+					<p className="text-base text-red-600">
 						{error}
 					</p>
 				</div>
@@ -54,70 +54,49 @@ export default function Landing() {
 	}
 
 	return (
-		<div className="space-y-8 sm:space-y-12 animate-fadeIn">
-			{/* Hero Section */}
-			<div className="text-center space-y-4 sm:space-y-6 pt-6 sm:pt-8 px-4">
-				<div className="space-y-2 sm:space-y-3">
-					<h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight" style={{textShadow: '0 4px 12px rgba(0,0,0,0.8), 0 2px 4px rgba(0,0,0,0.6)'}}>
-						See how citizens are improving their city
-					</h1>
-				</div>
-				
-				{/* Trust indicators */}
-				<div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-6 text-white text-xs sm:text-sm font-medium" style={{textShadow: '0 2px 6px rgba(0,0,0,0.6)'}}>
-					<div className="flex items-center gap-2">
-						<svg className="w-4 h-4 sm:w-5 sm:h-5 drop-shadow-md" fill="currentColor" viewBox="0 0 20 20">
-							<path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-						</svg>
-						<span>Fast Response</span>
-					</div>
-					<div className="flex items-center gap-2">
-						<svg className="w-4 h-4 sm:w-5 sm:h-5 drop-shadow-md" fill="currentColor" viewBox="0 0 20 20">
-							<path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z" />
-						</svg>
-						<span>Transparent Updates</span>
-					</div>
-					<div className="flex items-center gap-2">
-						<svg className="w-4 h-4 sm:w-5 sm:h-5 drop-shadow-md" fill="currentColor" viewBox="0 0 20 20">
-							<path fillRule="evenodd" d="M5 2a1 1 0 011 1v1h1a1 1 0 010 2H6v1a1 1 0 01-2 0V6H3a1 1 0 010-2h1V3a1 1 0 011-1zm0 10a1 1 0 011 1v1h1a1 1 0 110 2H6v1a1 1 0 11-2 0v-1H3a1 1 0 110-2h1v-1a1 1 0 011-1zM12 2a1 1 0 01.967.744L14.146 7.2 17.5 9.134a1 1 0 010 1.732l-3.354 1.935-1.18 4.455a1 1 0 01-1.933 0L9.854 12.8 6.5 10.866a1 1 0 010-1.732l3.354-1.935 1.18-4.455A1 1 0 0112 2z" clipRule="evenodd" />
-						</svg>
-						<span>Proven Results</span>
-					</div>
-				</div>
+		<div className="min-h-screen flex flex-col items-center justify-center px-4 py-8 space-y-8 animate-fadeIn">
+			{/* Hero Section - Large centered title */}
+			<div className="text-center space-y-1 mb-8">
+				<h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-white leading-none tracking-tight text-shadow-strong"
+				    style={{
+						fontFamily: '"Times New Roman", Times, serif',
+						fontWeight: '300',
+						letterSpacing: '-0.02em'
+					}}>
+					Improve My City
+				</h1>
+			</div>
+
+			{/* Status Cards */}
+			<div className="w-full">
+				<StatsBar metrics={metrics} loading={loading} />
 			</div>
 			
 			{/* Search Bar */}
-			<div className="flex justify-center px-4">
-				<form onSubmit={handleSearch} className="w-full max-w-2xl">
+			<div className="w-full max-w-5xl">
+				<form onSubmit={handleSearch}>
 					<div className="relative group">
-						<div className="absolute inset-y-0 left-0 pl-3 sm:pl-4 flex items-center pointer-events-none">
-							<svg className="h-4 w-4 sm:h-5 sm:w-5 text-gray-400 group-focus-within:text-blue-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-								<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-							</svg>
-						</div>
 						<input
 							type="text"
 							value={searchQuery}
 							onChange={(e) => setSearchQuery(e.target.value)}
-							placeholder="Search by complaint ID"
-							className="w-full pl-10 sm:pl-12 pr-3 sm:pr-4 py-3 sm:py-4 text-sm sm:text-base rounded-xl border-2 border-gray-300 bg-white/98 backdrop-blur-sm shadow-2xl focus:outline-none focus:ring-4 focus:ring-blue-500/30 focus:border-blue-500 transition-all duration-200 text-gray-900 placeholder-gray-500"
+							placeholder="Search by complaint ID..."
+							className="w-full px-6 py-4 text-base rounded-2xl opaque-search shadow-xl focus:outline-none focus:ring-4 focus:ring-blue-500/30 transition-all duration-200 text-gray-900 placeholder-gray-500"
 						/>
 					</div>
 				</form>
 			</div>
 
-			<StatsBar metrics={metrics} loading={loading} />
-			
-			<div className="flex justify-center px-4 pb-6 sm:pb-8">
+			{/* File Complaint Button */}
+			<div className="w-full max-w-5xl">
 				<Link
 					href="/report"
-					className="group relative inline-flex items-center justify-center gap-2 sm:gap-3 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-bold px-6 sm:px-10 py-4 sm:py-5 rounded-xl shadow-[0_10px_30px_rgba(37,99,235,0.4)] hover:shadow-[0_15px_40px_rgba(37,99,235,0.6)] transition-all duration-300 hover:scale-105 text-base sm:text-lg ring-2 ring-blue-500/20 w-full sm:w-auto max-w-sm"
+					className="group relative inline-flex items-center justify-center gap-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold px-8 py-4 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 text-lg w-full"
 				>
-					<svg className="w-5 h-5 sm:w-6 sm:h-6 group-hover:rotate-90 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+					<svg className="w-5 h-5 group-hover:rotate-90 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 						<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 4v16m8-8H4" />
 					</svg>
-					File a Complaint
-					<div className="absolute inset-0 rounded-xl bg-white opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
+					File new Complaint
 				</Link>
 			</div>
 		</div>
