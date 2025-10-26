@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import { config } from './config';
 
-const MONGODB_URI = "mongodb://localhost:27017/improve-my-city";
+const MONGODB_URI = "mongodb+srv://iitzJLK:KgTP7FIQi0xFj5jG@cluster0.5gbnrky.mongodb.net/?appName=Cluster0";
 
 if (!MONGODB_URI) {
   throw new Error('Please define the MONGO_URI environment variable inside .env.local');
