@@ -8,6 +8,9 @@ const inter = Inter({ subsets: ['latin'] });
 export const metadata: Metadata = {
   title: 'Improve My City',
   description: 'Report civic issues and track their resolution',
+  icons: {
+    icon: '/favicon.svg',
+  },
 };
 
 export default function RootLayout({
@@ -23,9 +26,9 @@ export default function RootLayout({
           style={{
             backgroundImage: 'url("https://previews.123rf.com/images/doelgautam/doelgautam1011/doelgautam101100005/8171707-political-map-of-india.jpg")',
             backgroundSize: 'cover',
-            backgroundPosition: 'center',
+            backgroundPosition: 'top center',
             backgroundRepeat: 'no-repeat',
-            backgroundAttachment: 'fixed'
+            backgroundAttachment: 'scroll'
           }}
         >
           <div className="absolute inset-0 bg-black bg-opacity-20"></div>
