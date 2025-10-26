@@ -97,3 +97,16 @@ body::before {
   outline: 2px solid rgb(var(--primary));
   outline-offset: 2px;
 }
+
+/* Improved mobile touch targets */
+@media (max-width: 640px) {
+  button, a, input, select, textarea {
+    min-height: 44px;
+  }
+  
+  /* Better mobile scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+}

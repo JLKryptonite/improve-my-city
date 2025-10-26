@@ -203,29 +203,31 @@ export default function ComplaintList() {
 	const hasActiveFilters = filters.status || filters.state || filters.city || filters.category;
 
 	return (
-		<div className="space-y-6 max-w-6xl mx-auto px-4 py-8 animate-fadeIn">
+		<div className="space-y-4 sm:space-y-6 max-w-6xl mx-auto px-4 py-4 sm:py-8 animate-fadeIn">
 			{/* Header */}
-			<div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-				<div className="flex items-center gap-4">
-					<h2 className="text-3xl font-bold text-gray-900">{getPageTitle()}</h2>
-					{hasActiveFilters && (
-						<Link
-							href="/complaints"
-							className="text-sm text-blue-600 hover:text-blue-700 font-medium flex items-center gap-1 hover:gap-2 transition-all"
-						>
-							<svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-								<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-							</svg>
-							Clear Filters
-						</Link>
-					)}
+			<div className="flex flex-col gap-3 sm:gap-4">
+				<div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+					<div className="flex items-center gap-3 flex-wrap">
+						<h2 className="text-2xl sm:text-3xl font-bold text-gray-900">{getPageTitle()}</h2>
+						{hasActiveFilters && (
+							<Link
+								href="/complaints"
+								className="text-xs sm:text-sm text-blue-600 hover:text-blue-700 font-medium flex items-center gap-1 hover:gap-2 transition-all"
+							>
+								<svg className="w-3 h-3 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+								</svg>
+								Clear Filters
+							</Link>
+						)}
+					</div>
+					<Link href="/report" className="inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-medium px-4 sm:px-6 py-3 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 text-sm sm:text-base">
+						<svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+						</svg>
+						Report Issue
+					</Link>
 				</div>
-				<Link href="/report" className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-medium px-6 py-3 rounded-lg shadow-md hover:shadow-lg transition-all duration-200">
-					<svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-						<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-					</svg>
-					Report Issue
-				</Link>
 			</div>
 
 			{/* Active Filter Badges */}
@@ -303,18 +305,18 @@ export default function ComplaintList() {
 			)}
 
 			{/* Filters */}
-			<div className="bg-white rounded-xl shadow-md p-6">
-				<h3 className="text-sm font-semibold text-gray-700 mb-4 flex items-center gap-2">
-					<svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+			<div className="bg-white rounded-xl shadow-md p-4 sm:p-6">
+				<h3 className="text-sm font-semibold text-gray-700 mb-3 sm:mb-4 flex items-center gap-2">
+					<svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 						<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
 					</svg>
 					Filter Complaints
 				</h3>
-				<div className="grid md:grid-cols-4 gap-4">
+				<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
 					<div>
-						<label className="block text-sm font-medium text-gray-700 mb-2">Status</label>
+						<label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1.5 sm:mb-2">Status</label>
 						<select
-							className="w-full border-2 border-gray-200 rounded-lg p-3 focus:outline-none focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 transition-all bg-white"
+							className="w-full border-2 border-gray-200 rounded-lg p-2.5 sm:p-3 text-sm sm:text-base focus:outline-none focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 transition-all bg-white"
 							value={filters.status}
 							onChange={(e) => handleFilterChange('status', e.target.value)}
 						>
@@ -329,29 +331,29 @@ export default function ComplaintList() {
 						</select>
 					</div>
 					<div>
-						<label className="block text-sm font-medium text-gray-700 mb-2">State</label>
+						<label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1.5 sm:mb-2">State</label>
 						<input
-							className="w-full border-2 border-gray-200 rounded-lg p-3 focus:outline-none focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
-							placeholder="e.g., Karnataka (press Enter to search)"
+							className="w-full border-2 border-gray-200 rounded-lg p-2.5 sm:p-3 text-sm sm:text-base focus:outline-none focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
+							placeholder="e.g., Karnataka"
 							value={localState}
 							onChange={(e) => setLocalState(e.target.value)}
 							onKeyDown={handleKeyDown}
 						/>
 					</div>
 					<div>
-						<label className="block text-sm font-medium text-gray-700 mb-2">City</label>
+						<label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1.5 sm:mb-2">City</label>
 						<input
-							className="w-full border-2 border-gray-200 rounded-lg p-3 focus:outline-none focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
-							placeholder="e.g., Bangalore (press Enter to search)"
+							className="w-full border-2 border-gray-200 rounded-lg p-2.5 sm:p-3 text-sm sm:text-base focus:outline-none focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
+							placeholder="e.g., Bangalore"
 							value={localCity}
 							onChange={(e) => setLocalCity(e.target.value)}
 							onKeyDown={handleKeyDown}
 						/>
 					</div>
 					<div>
-						<label className="block text-sm font-medium text-gray-700 mb-2">Category</label>
+						<label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1.5 sm:mb-2">Category</label>
 						<select
-							className="w-full border-2 border-gray-200 rounded-lg p-3 focus:outline-none focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 transition-all bg-white"
+							className="w-full border-2 border-gray-200 rounded-lg p-2.5 sm:p-3 text-sm sm:text-base focus:outline-none focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 transition-all bg-white"
 							value={filters.category}
 							onChange={(e) => handleFilterChange('category', e.target.value)}
 						>
@@ -364,12 +366,12 @@ export default function ComplaintList() {
 						</select>
 					</div>
 				</div>
-				<div className="mt-4 flex justify-center">
+				<div className="mt-3 sm:mt-4 flex justify-center">
 					<button
 						onClick={applyTextFilters}
-						className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-medium px-8 py-3 rounded-lg shadow-md hover:shadow-lg transition-all duration-200"
+						className="inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-medium px-6 sm:px-8 py-2.5 sm:py-3 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 text-sm sm:text-base w-full sm:w-auto"
 					>
-						<svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+						<svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 							<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
 						</svg>
 						Search
@@ -378,13 +380,13 @@ export default function ComplaintList() {
 			</div>
 
 			{/* Results */}
-			<div className="space-y-4">
+			<div className="space-y-3 sm:space-y-4">
 				{complaints?.items?.map((complaint, index) => {
 					const statusInfo = getStatusInfo(complaint.status);
 					return (
 						<div 
 							key={complaint._id} 
-							className="bg-white rounded-xl shadow-md hover:shadow-xl p-6 transition-all duration-300 border-l-4 hover:scale-[1.01] animate-fadeIn group"
+							className="bg-white rounded-xl shadow-md hover:shadow-xl p-4 sm:p-6 transition-all duration-300 border-l-4 hover:scale-[1.01] animate-fadeIn group"
 							style={{ 
 								borderLeftColor: statusInfo.color.includes('green') ? '#10b981' : 
 												 statusInfo.color.includes('blue') ? '#3b82f6' :
@@ -393,39 +395,39 @@ export default function ComplaintList() {
 								animationDelay: `${index * 50}ms`
 							}}
 						>
-							<div className="flex items-start justify-between gap-4">
-								<div className="flex-1 space-y-3">
-									<div className="flex items-center gap-3 flex-wrap">
-										<h3 className="text-lg font-bold text-gray-900 capitalize">
+							<div className="flex flex-col sm:flex-row items-start justify-between gap-3 sm:gap-4">
+								<div className="flex-1 space-y-2 sm:space-y-3 w-full">
+									<div className="flex items-center gap-2 sm:gap-3 flex-wrap">
+										<h3 className="text-base sm:text-lg font-bold text-gray-900 capitalize">
 											{complaint.category}
 										</h3>
-										<span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold border ${statusInfo.color}`}>
+										<span className={`inline-flex items-center gap-1.5 px-2 sm:px-3 py-1 rounded-full text-xs font-semibold border ${statusInfo.color}`}>
 											{statusInfo.icon}
 											{complaint.status.replace('_', ' ')}
 										</span>
 									</div>
-									<div className="flex items-center gap-4 text-sm text-gray-600">
+									<div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 text-xs sm:text-sm text-gray-600">
 										<div className="flex items-center gap-1.5">
-											<svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+											<svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 												<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
 												<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
 											</svg>
 											<span className="font-medium">{complaint.city}, {complaint.state}</span>
 										</div>
 										<div className="flex items-center gap-1.5">
-											<svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+											<svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 												<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
 											</svg>
 											<span>{new Date(complaint.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
 										</div>
 									</div>
-									<div className="text-xs text-gray-500 font-mono bg-gray-50 px-3 py-1.5 rounded-lg inline-block">
+									<div className="text-xs text-gray-500 font-mono bg-gray-50 px-2 sm:px-3 py-1.5 rounded-lg inline-block break-all">
 										ID: {complaint._id}
 									</div>
 								</div>
 								<Link
 									href={`/complaints/${complaint._id}`}
-									className="flex-shrink-0 bg-blue-600 hover:bg-blue-700 text-white font-medium px-6 py-3 rounded-lg transition-all duration-200 hover:shadow-lg flex items-center gap-2 group-hover:scale-105"
+									className="w-full sm:w-auto flex-shrink-0 bg-blue-600 hover:bg-blue-700 text-white font-medium px-4 sm:px-6 py-2.5 sm:py-3 rounded-lg transition-all duration-200 hover:shadow-lg flex items-center justify-center gap-2 group-hover:scale-105 text-sm sm:text-base"
 								>
 									<span>View Details</span>
 									<svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -450,28 +452,29 @@ export default function ComplaintList() {
 
 			{/* Pagination */}
 			{complaints && complaints.totalPages > 1 && (
-				<div className="flex flex-col md:flex-row items-center justify-between gap-4 bg-white rounded-xl shadow-md p-6">
-					<div className="text-sm text-gray-600 font-medium">
+				<div className="flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4 bg-white rounded-xl shadow-md p-4 sm:p-6">
+					<div className="text-xs sm:text-sm text-gray-600 font-medium text-center sm:text-left">
 						Showing <span className="text-gray-900 font-semibold">{((complaints.page - 1) * complaints.pageSize) + 1}</span> to <span className="text-gray-900 font-semibold">{Math.min(complaints.page * complaints.pageSize, complaints.total)}</span> of <span className="text-gray-900 font-semibold">{complaints.total}</span> results
 					</div>
-					<div className="flex items-center gap-2">
+					<div className="flex items-center gap-2 w-full sm:w-auto">
 						<button
 							onClick={() => handleFilterChange('page', String(complaints.page - 1))}
 							disabled={complaints.page <= 1}
-							className="px-4 py-2 border-2 border-gray-200 rounded-lg font-medium disabled:opacity-40 disabled:cursor-not-allowed hover:bg-gray-50 hover:border-gray-300 transition-all flex items-center gap-2"
+							className="flex-1 sm:flex-none px-3 sm:px-4 py-2 border-2 border-gray-200 rounded-lg font-medium text-sm disabled:opacity-40 disabled:cursor-not-allowed hover:bg-gray-50 hover:border-gray-300 transition-all flex items-center justify-center gap-2"
 						>
 							<svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 								<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
 							</svg>
-							Previous
+							<span className="hidden sm:inline">Previous</span>
+							<span className="sm:hidden">Prev</span>
 						</button>
-						<span className="px-4 py-2 font-semibold text-gray-700 bg-gray-50 rounded-lg border-2 border-gray-200">
-							Page {complaints.page} of {complaints.totalPages}
+						<span className="px-3 sm:px-4 py-2 font-semibold text-gray-700 bg-gray-50 rounded-lg border-2 border-gray-200 text-xs sm:text-sm whitespace-nowrap">
+							{complaints.page}/{complaints.totalPages}
 						</span>
 						<button
 							onClick={() => handleFilterChange('page', String(complaints.page + 1))}
 							disabled={complaints.page >= complaints.totalPages}
-							className="px-4 py-2 border-2 border-gray-200 rounded-lg font-medium disabled:opacity-40 disabled:cursor-not-allowed hover:bg-gray-50 hover:border-gray-300 transition-all flex items-center gap-2"
+							className="flex-1 sm:flex-none px-3 sm:px-4 py-2 border-2 border-gray-200 rounded-lg font-medium text-sm disabled:opacity-40 disabled:cursor-not-allowed hover:bg-gray-50 hover:border-gray-300 transition-all flex items-center justify-center gap-2"
 						>
 							Next
 							<svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

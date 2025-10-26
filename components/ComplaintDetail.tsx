@@ -218,12 +218,12 @@ export default function ComplaintDetail({ id }: ComplaintDetailProps) {
 	}
 
 	return (
-		<div className="max-w-6xl mx-auto px-4 py-8 space-y-8 animate-fadeIn">
+		<div className="max-w-6xl mx-auto px-4 py-4 sm:py-8 space-y-4 sm:space-y-8 animate-fadeIn">
 			{/* Header */}
-			<div className="flex items-center justify-between">
-				<h2 className="text-3xl font-bold text-gray-900">Complaint Details</h2>
-				<Link href="/complaints" className="text-sm font-medium text-blue-600 hover:text-blue-700 flex items-center gap-2 transition-colors hover:gap-3">
-					<svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+			<div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+				<h2 className="text-2xl sm:text-3xl font-bold text-gray-900">Complaint Details</h2>
+				<Link href="/complaints" className="text-xs sm:text-sm font-medium text-blue-600 hover:text-blue-700 flex items-center gap-2 transition-colors hover:gap-3">
+					<svg className="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 						<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
 					</svg>
 					Back to List
@@ -231,87 +231,87 @@ export default function ComplaintDetail({ id }: ComplaintDetailProps) {
 			</div>
 
 			{/* Complaint Header */}
-			<div className="bg-white rounded-2xl shadow-xl p-8 border-l-4 border-blue-500">
-				<div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-6">
-					<div className="flex items-center gap-4 flex-wrap">
-						<span className="text-3xl font-bold text-gray-900">#{complaint._id}</span>
-						<span className={`inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold border-2 ${getStatusColor(complaint.status)}`}>
+			<div className="bg-white rounded-2xl shadow-xl p-4 sm:p-8 border-l-4 border-blue-500">
+				<div className="flex flex-col gap-4 mb-4 sm:mb-6">
+					<div className="flex flex-col sm:flex-row sm:items-center gap-3 flex-wrap">
+						<span className="text-xl sm:text-3xl font-bold text-gray-900 break-all">#{complaint._id}</span>
+						<span className={`inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl text-xs sm:text-sm font-semibold border-2 ${getStatusColor(complaint.status)}`}>
 							{complaint.status.replace('_', ' ').toUpperCase()}
 						</span>
 					</div>
-					<div className="flex items-center gap-2 text-sm text-gray-500">
-						<svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+					<div className="flex items-center gap-2 text-xs sm:text-sm text-gray-500">
+						<svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 							<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
 						</svg>
 						Created: <span className="font-medium text-gray-700">{new Date(complaint.created_at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</span>
 					</div>
 				</div>
 
-				<div className="grid md:grid-cols-2 gap-8">
-					<div className="space-y-6">
+				<div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-8">
+					<div className="space-y-4 sm:space-y-6">
 						<div>
-							<h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-2">Category</h3>
-							<p className="text-lg font-semibold text-gray-900 capitalize flex items-center gap-2">
+							<h3 className="text-xs sm:text-sm font-semibold text-gray-500 uppercase tracking-wide mb-2">Category</h3>
+							<p className="text-base sm:text-lg font-semibold text-gray-900 capitalize flex items-center gap-2">
 								<span className="w-2 h-2 bg-blue-500 rounded-full"></span>
 								{complaint.category}
 							</p>
 						</div>
 						<div>
-							<h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-2">Description</h3>
-							<p className="text-gray-700 leading-relaxed">{complaint.description || 'No description provided'}</p>
+							<h3 className="text-xs sm:text-sm font-semibold text-gray-500 uppercase tracking-wide mb-2">Description</h3>
+							<p className="text-sm sm:text-base text-gray-700 leading-relaxed">{complaint.description || 'No description provided'}</p>
 						</div>
 						<div>
-							<h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-2">Location</h3>
+							<h3 className="text-xs sm:text-sm font-semibold text-gray-500 uppercase tracking-wide mb-2">Location</h3>
 							<div className="space-y-2">
-								<p className="text-gray-900 font-medium flex items-center gap-2">
-									<svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<p className="text-sm sm:text-base text-gray-900 font-medium flex items-start gap-2">
+									<svg className="w-4 h-4 sm:w-5 sm:h-5 text-blue-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 										<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
 										<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
 									</svg>
-									{complaint.city}, {complaint.state}
-									{complaint.ward && ` • Ward ${complaint.ward}`}
+									<span>{complaint.city}, {complaint.state}
+									{complaint.ward && ` • Ward ${complaint.ward}`}</span>
 								</p>
-								<p className="text-xs text-gray-500 font-mono bg-gray-50 px-3 py-2 rounded-lg inline-flex items-center gap-2">
-									<svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<p className="text-xs text-gray-500 font-mono bg-gray-50 px-2 sm:px-3 py-2 rounded-lg inline-flex items-start gap-2 break-all">
+									<svg className="w-3 h-3 sm:w-3.5 sm:h-3.5 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 										<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
 									</svg>
-									Lat: {complaint.location.coordinates[1].toFixed(6)}, Lng: {complaint.location.coordinates[0].toFixed(6)}
+									<span>Lat: {complaint.location.coordinates[1].toFixed(6)}, Lng: {complaint.location.coordinates[0].toFixed(6)}</span>
 								</p>
 							</div>
 						</div>
 					</div>
 
-					<div className="space-y-6">
+					<div className="space-y-4 sm:space-y-6">
 						<div>
-							<h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">Photos</h3>
+							<h3 className="text-xs sm:text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">Photos</h3>
 							{complaint.photos_before && complaint.photos_before.length > 0 ? (
-								<div className="grid grid-cols-2 gap-3">
+								<div className="grid grid-cols-2 gap-2 sm:gap-3">
 									{complaint.photos_before.map((photo, index) => (
 										<div key={index} className="group relative">
 											<img
 												src={photo}
 												alt={`Before ${index + 1}`}
-												className="w-full h-40 object-cover rounded-lg border-2 border-gray-200 group-hover:border-blue-400 transition-all duration-200 cursor-pointer"
+												className="w-full h-32 sm:h-40 object-cover rounded-lg border-2 border-gray-200 group-hover:border-blue-400 transition-all duration-200 cursor-pointer"
 											/>
 											<div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-10 rounded-lg transition-opacity duration-200"></div>
 										</div>
 									))}
 								</div>
 							) : (
-								<p className="text-gray-500 italic">No photos uploaded</p>
+								<p className="text-sm text-gray-500 italic">No photos uploaded</p>
 							)}
 						</div>
 
 						{(complaint.photos_progress && complaint.photos_progress.length > 0) && (
 							<div>
-								<h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">Progress Photos</h3>
-								<div className="grid grid-cols-2 gap-3">
+								<h3 className="text-xs sm:text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">Progress Photos</h3>
+								<div className="grid grid-cols-2 gap-2 sm:gap-3">
 									{complaint.photos_progress.map((photo, index) => (
 										<div key={index} className="group relative">
 											<img
 												src={photo}
 												alt={`Progress ${index + 1}`}
-												className="w-full h-40 object-cover rounded-lg border-2 border-green-200 group-hover:border-green-400 transition-all duration-200 cursor-pointer"
+												className="w-full h-32 sm:h-40 object-cover rounded-lg border-2 border-green-200 group-hover:border-green-400 transition-all duration-200 cursor-pointer"
 											/>
 											<div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-10 rounded-lg transition-opacity duration-200"></div>
 										</div>
@@ -325,26 +325,27 @@ export default function ComplaintDetail({ id }: ComplaintDetailProps) {
 
 			{/* Authority Actions */}
 			{isAuthority && (
-				<div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl shadow-lg p-8 border border-blue-100">
-					<h3 className="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">
-						<svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+				<div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl shadow-lg p-4 sm:p-8 border border-blue-100">
+					<h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-4 sm:mb-6 flex items-center gap-2">
+						<svg className="w-5 h-5 sm:w-6 sm:h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 							<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
 							<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
 						</svg>
 						Authority Actions
 					</h3>
-					<div className="grid md:grid-cols-2 lg:grid-cols-4 gap-3">
+					<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3">
 						{complaint.status === 'pending' && (
 							<button
 								onClick={() => handleAuthorityAction('start-progress')}
 								disabled={actionLoading !== null}
-								className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-5 py-3 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 hover:shadow-lg flex items-center justify-center gap-2"
+								className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-4 sm:px-5 py-2.5 sm:py-3 text-sm sm:text-base rounded-lg disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 hover:shadow-lg flex items-center justify-center gap-2"
 							>
-								<svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 									<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
 									<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
 								</svg>
-								{actionLoading === 'start-progress' ? 'Starting...' : 'Start Progress'}
+								<span className="hidden sm:inline">{actionLoading === 'start-progress' ? 'Starting...' : 'Start Progress'}</span>
+								<span className="sm:hidden">{actionLoading === 'start-progress' ? 'Starting...' : 'Start'}</span>
 							</button>
 						)}
 
@@ -353,32 +354,35 @@ export default function ComplaintDetail({ id }: ComplaintDetailProps) {
 								<button
 									onClick={() => handleAuthorityAction('update-progress')}
 									disabled={actionLoading !== null}
-									className="bg-green-600 hover:bg-green-700 text-white font-semibold px-5 py-3 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 hover:shadow-lg flex items-center justify-center gap-2"
+									className="bg-green-600 hover:bg-green-700 text-white font-semibold px-4 sm:px-5 py-2.5 sm:py-3 text-sm sm:text-base rounded-lg disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 hover:shadow-lg flex items-center justify-center gap-2"
 								>
-									<svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 										<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
 									</svg>
-									{actionLoading === 'update-progress' ? 'Updating...' : 'Update Progress'}
+									<span className="hidden sm:inline">{actionLoading === 'update-progress' ? 'Updating...' : 'Update Progress'}</span>
+									<span className="sm:hidden">{actionLoading === 'update-progress' ? 'Update' : 'Update'}</span>
 								</button>
 								<button
 									onClick={() => handleAuthorityAction('hold')}
 									disabled={actionLoading !== null}
-									className="bg-amber-600 hover:bg-amber-700 text-white font-semibold px-5 py-3 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 hover:shadow-lg flex items-center justify-center gap-2"
+									className="bg-amber-600 hover:bg-amber-700 text-white font-semibold px-4 sm:px-5 py-2.5 sm:py-3 text-sm sm:text-base rounded-lg disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 hover:shadow-lg flex items-center justify-center gap-2"
 								>
-									<svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 										<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z" />
 									</svg>
-									{actionLoading === 'hold' ? 'Holding...' : 'Put On Hold'}
+									<span className="hidden sm:inline">{actionLoading === 'hold' ? 'Holding...' : 'Put On Hold'}</span>
+									<span className="sm:hidden">{actionLoading === 'hold' ? 'Hold' : 'Hold'}</span>
 								</button>
 								<button
 									onClick={() => handleAuthorityAction('resolve')}
 									disabled={actionLoading !== null}
-									className="bg-green-700 hover:bg-green-800 text-white font-semibold px-5 py-3 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 hover:shadow-lg flex items-center justify-center gap-2"
+									className="bg-green-700 hover:bg-green-800 text-white font-semibold px-4 sm:px-5 py-2.5 sm:py-3 text-sm sm:text-base rounded-lg disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 hover:shadow-lg flex items-center justify-center gap-2"
 								>
-									<svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+									<svg className="w-4 h-4 sm:w-5 sm:h-5" fill="currentColor" viewBox="0 0 20 20">
 										<path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
 									</svg>
-									{actionLoading === 'resolve' ? 'Resolving...' : 'Mark Resolved'}
+									<span className="hidden sm:inline">{actionLoading === 'resolve' ? 'Resolving...' : 'Mark Resolved'}</span>
+									<span className="sm:hidden">{actionLoading === 'resolve' ? 'Resolve' : 'Resolve'}</span>
 								</button>
 							</>
 						)}
@@ -387,9 +391,9 @@ export default function ComplaintDetail({ id }: ComplaintDetailProps) {
 			)}
 
 			{/* Timeline */}
-			<div className="bg-white rounded-2xl shadow-xl p-8">
-				<h3 className="text-xl font-bold text-gray-900 mb-8 flex items-center gap-2">
-					<svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+			<div className="bg-white rounded-2xl shadow-xl p-4 sm:p-8">
+				<h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-6 sm:mb-8 flex items-center gap-2">
+					<svg className="w-5 h-5 sm:w-6 sm:h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 						<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
 					</svg>
 					Timeline
@@ -397,30 +401,30 @@ export default function ComplaintDetail({ id }: ComplaintDetailProps) {
 				<div className="relative">
 					{/* Vertical line */}
 					{complaint.timeline.length > 1 && (
-						<div className="absolute left-6 top-12 bottom-0 w-0.5 bg-gradient-to-b from-blue-200 to-transparent"></div>
+						<div className="absolute left-4 sm:left-6 top-12 bottom-0 w-0.5 bg-gradient-to-b from-blue-200 to-transparent"></div>
 					)}
 
-					<div className="space-y-6">
+					<div className="space-y-4 sm:space-y-6">
 						{complaint.timeline.map((event, index) => {
 							const timelineInfo = getTimelineIcon(event.type);
 							return (
-								<div key={index} className="flex gap-6 relative animate-fadeIn" style={{ animationDelay: `${index * 100}ms` }}>
+								<div key={index} className="flex gap-3 sm:gap-6 relative animate-fadeIn" style={{ animationDelay: `${index * 100}ms` }}>
 									{/* Icon */}
 									<div className="flex-shrink-0 relative z-10">
-										<div className={`w-12 h-12 ${timelineInfo.bg} rounded-full flex items-center justify-center shadow-md border-4 border-white`}>
+										<div className={`w-10 h-10 sm:w-12 sm:h-12 ${timelineInfo.bg} rounded-full flex items-center justify-center shadow-md border-4 border-white`}>
 											{timelineInfo.icon}
 										</div>
 									</div>
 									
 									{/* Content */}
-									<div className="flex-1 pb-8">
-										<div className="bg-gray-50 rounded-xl p-5 border border-gray-200 hover:border-blue-200 transition-colors">
-											<div className="flex flex-col md:flex-row md:items-center md:justify-between gap-2 mb-3">
-												<span className="text-base font-bold text-gray-900 capitalize">
+									<div className="flex-1 pb-6 sm:pb-8">
+										<div className="bg-gray-50 rounded-xl p-3 sm:p-5 border border-gray-200 hover:border-blue-200 transition-colors">
+											<div className="flex flex-col gap-2 mb-2 sm:mb-3">
+												<span className="text-sm sm:text-base font-bold text-gray-900 capitalize">
 													{event.type.replace(/_/g, ' ')}
 												</span>
-												<span className="text-sm text-gray-500 flex items-center gap-1.5">
-													<svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+												<span className="text-xs sm:text-sm text-gray-500 flex items-center gap-1.5">
+													<svg className="w-3 h-3 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 														<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
 													</svg>
 													{new Date(event.ts).toLocaleString('en-US', { 
@@ -434,16 +438,16 @@ export default function ComplaintDetail({ id }: ComplaintDetailProps) {
 												</span>
 											</div>
 											{event.note && (
-												<p className="text-sm text-gray-700 mb-3 leading-relaxed">{event.note}</p>
+												<p className="text-xs sm:text-sm text-gray-700 mb-2 sm:mb-3 leading-relaxed">{event.note}</p>
 											)}
 											{event.images && event.images.length > 0 && (
-												<div className="flex gap-3 flex-wrap">
+												<div className="flex gap-2 sm:gap-3 flex-wrap">
 													{event.images.map((img, imgIndex) => (
 														<div key={imgIndex} className="group relative">
 															<img
 																src={img}
 																alt={`Timeline ${imgIndex + 1}`}
-																className="w-24 h-24 object-cover rounded-lg border-2 border-gray-300 group-hover:border-blue-400 transition-all duration-200 cursor-pointer"
+																className="w-20 h-20 sm:w-24 sm:h-24 object-cover rounded-lg border-2 border-gray-300 group-hover:border-blue-400 transition-all duration-200 cursor-pointer"
 															/>
 															<div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-10 rounded-lg transition-opacity duration-200"></div>
 														</div>
