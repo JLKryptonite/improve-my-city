@@ -80,27 +80,27 @@ export default function StatsBar({ metrics, loading }: StatsBarProps) {
 						className="block group animate-fadeIn"
 						style={{ animationDelay: `${index * 100}ms` }}
 					>
-						<div className={`relative h-40 sm:h-48 bg-white/98 backdrop-blur-sm rounded-2xl shadow-2xl p-4 sm:p-6 flex flex-col items-center justify-center border-l-4 ${stat.borderColor} ${stat.bgHover} hover:shadow-[0_20px_50px_rgba(0,0,0,0.3)] hover:scale-105 transition-all duration-300 cursor-pointer overflow-hidden`}>
-							{/* Gradient background on hover */}
-							<div className={`absolute inset-0 bg-gradient-to-br ${stat.gradient} opacity-0 group-hover:opacity-5 transition-opacity duration-300`}></div>
+						<div className={`relative h-40 sm:h-48 bg-white backdrop-blur-md rounded-2xl shadow-[0_10px_40px_rgba(0,0,0,0.25)] p-4 sm:p-6 flex flex-col items-center justify-center border-l-4 ${stat.borderColor} ${stat.bgHover} hover:shadow-[0_20px_50px_rgba(0,0,0,0.35)] hover:scale-105 transition-all duration-300 cursor-pointer overflow-hidden ring-2 ring-gray-200/50`}>
+							{/* Gradient background */}
+							<div className={`absolute inset-0 bg-gradient-to-br ${stat.gradient} opacity-[0.03] group-hover:opacity-[0.08] transition-opacity duration-300`}></div>
 							
 							{/* Icon */}
-							<div className={`${stat.iconColor} mb-2 sm:mb-3 group-hover:scale-110 transition-transform duration-300`}>
+							<div className={`${stat.iconColor} mb-2 sm:mb-3 group-hover:scale-110 transition-transform duration-300 drop-shadow-sm`}>
 								{stat.icon}
 							</div>
 							
 							{/* Title */}
-							<div className="text-sm sm:text-base text-gray-600 font-semibold text-center mb-1 sm:mb-2 group-hover:text-gray-900 transition-colors">
+							<div className="text-sm sm:text-base text-gray-700 font-bold text-center mb-1 sm:mb-2 group-hover:text-gray-900 transition-colors">
 								{stat.title}
 							</div>
 							
 							{/* Count */}
-							<div className={`text-3xl sm:text-4xl font-bold ${stat.textColor} group-hover:scale-110 transition-transform duration-300`}>
+							<div className={`text-3xl sm:text-4xl font-extrabold ${stat.textColor} group-hover:scale-110 transition-transform duration-300 drop-shadow-sm`}>
 								{stat.count}
 							</div>
 							
 							{/* Label */}
-							<div className="text-xs sm:text-sm text-gray-500 mt-1">
+							<div className="text-xs sm:text-sm text-gray-600 font-medium mt-1">
 								Reports
 							</div>
 
